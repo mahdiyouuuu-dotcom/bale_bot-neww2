@@ -1,3 +1,19 @@
+import os
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from threading import Thread
+
+PORT = int(os.environ.get("PORT", 10000))
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is running!")
+
+def run_server():
+    HTTPServer(("0.0.0.0", PORT), Handler).serve_forever()
+
+Thread(target=run_server, daemon=True).start()
 
 # -*- coding: utf-8 -*-
 # فروشگاه سکه بله
